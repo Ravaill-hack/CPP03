@@ -6,7 +6,7 @@
 /*   By: lmatkows <lmatkows@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 09:00:20 by lmatkows          #+#    #+#             */
-/*   Updated: 2025/05/13 09:52:58 by lmatkows         ###   ########.fr       */
+/*   Updated: 2025/05/13 10:57:57 by lmatkows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,25 @@
 ClapTrap::ClapTrap() : _hitPoints(10), _nrjPoints(10), _attckDamage(0)
 {
 	_name = "Default";
+	std::cout << std::endl;
 	std::cout << "Default constructor called" << std::endl;
 }
 
 ClapTrap::~ClapTrap()
 {
+	std::cout << std::endl;
 	std::cout << "Destructor called" << std::endl;
 }
 	
 ClapTrap::ClapTrap(ClapTrap const & toCopy) : _name(toCopy._name), _hitPoints(toCopy._hitPoints), _nrjPoints(toCopy._nrjPoints), _attckDamage(toCopy._attckDamage)
 {
+	std::cout << std::endl;
 	std::cout << "Copy constructor called" << std::endl;
 }
 
 ClapTrap & ClapTrap::operator=(const ClapTrap & other)
 {
+	std::cout << std::endl;
 	std::cout << "Assignation operator called" << std::endl;
 	if (this != &other)
 	{
@@ -43,6 +47,7 @@ ClapTrap & ClapTrap::operator=(const ClapTrap & other)
 
 ClapTrap::ClapTrap(std::string name) : _name(name), _hitPoints(10), _nrjPoints(10), _attckDamage(0)
 {
+	std::cout << std::endl;
 	std::cout << "Name constructor called" << std::endl;
 }
 
@@ -88,36 +93,80 @@ void	ClapTrap::setAttckDamage(unsigned int attckDamage)
 
 void	ClapTrap::attack(const std::string & target)
 {
+	std::cout << std::endl;
 	std::cout << getName();
-	if (getHitPoints() > 0 && getNrjPoints() > 0)
+	if (getHitPoints() == 0)
+	{
+		std::cout << " is already dead" << std::endl;
+		return ;	
+	}
+	if (getNrjPoints() > 0)
+	{
 		std::cout << " attacks ";
+		if (getName() == target)
+		{
+			std::cout << "himself!!" << std::endl;
+			std::cout << "Therefore attack can't happen" << std::endl;
+			return;
+		}
+		else
+		{
+			std::cout << target << ", causing " << getAttckDamage() << " points of damage!" << std::endl;
+			setNrjPoints(getNrjPoints() - 1);
+		}
+	}
 	else
 	{
 		std::cout << " wants to attack but does not have enough points or is dead" << std::endl;
 		return;
 	}
-	if (getName() == target)
-	{
-		std::cout << "himself!!" << std::endl;
-		std::cout << "Therefore attack can't happen" << std::endl;
-		return;
-	}
-	else
-	{
-		std::cout << target << ", causing " << getAttckDamage() << " points of damage!" << std::endl;
-		setNrjPoints(getNrjPoints() - 1);
-	}
+	
 	return;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
+	std::cout << std::endl;
 	std::cout << getName();
-	if ()
-	setHitPoints(getHitPoints() - amount);
+	if (getHitPoints() == 0)
+		std::cout << " is already dead" << std::endl;
+	else if (amount > getHitPoints())
+	{
+		setHitPoints(0);
+		std::cout << " lose all his hit points in an attack, therefore died" << std::endl;
+	}
+	else
+	{
+		setHitPoints(getHitPoints() - amount);
+		std::cout << " lose " << amount << " hit points" << std::endl;
+	}
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	
+	std::cout << std::endl;
+	std::cout << getName();
+	if (getHitPoints() == 0)
+	{
+		std::cout << " is already dead" << std::endl;
+		return ;
+	}
+	if (getNrjPoints() > 0)
+	{
+		std::cout << " heals himself and gain " << amount << " hit points" << std::endl;
+		setHitPoints(getHitPoints() + amount);
+		setNrjPoints(getNrjPoints() - 1);
+	}
+	else
+		std::cout << " would like to heal himself but doesn't have enough points" << std::endl;
+	return;
+}
+
+void	ClapTrap::announce() const
+{
+	std::cout << std::endl;
+	std::cout << getName() << " has "
+			<< getHitPoints() << " hit points, "
+			<< getNrjPoints() << " energy points and his attacks cause "
+			<< getAttckDamage() << " damage points" << std::endl;
 }

@@ -30,6 +30,8 @@ class ClapTrap
 		void			setNrjPoints(unsigned int nrjPoints);
 		void			setAttckDamage(unsigned int attckDamage);
 
+		void			announce() const;
+
 	private:
 		std::string		_name;
 		unsigned int	_hitPoints;
