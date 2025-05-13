@@ -6,6 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS_FILES = \
 	main.cpp \
 	ClapTrap.cpp \
+	ScavTrap.cpp \
 
 OBJS = $(SRCS_FILES:.cpp=.o)
 
