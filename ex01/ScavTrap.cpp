@@ -6,7 +6,7 @@
 /*   By: lmatkows <lmatkows@student.42perpignan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:08:41 by lmatkows          #+#    #+#             */
-/*   Updated: 2025/05/13 13:31:36 by lmatkows         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:17:06 by lmatkows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ ScavTrap::~ScavTrap()
 	std::cout << std::endl;
 	std::cout << "ScavTrap destructor called" << std::endl;
 }
-ScavTrap::ScavTrap(const ScavTrap & to_copy)
+ScavTrap::ScavTrap(const ScavTrap & toCopy) : ClapTrap(toCopy)
 {
 	std::cout << std::endl;
 	std::cout << "ScavTrap copy constructor called" << std::endl;
-	*this = to_copy;
+	*this = toCopy;
 }
 		
 ScavTrap & ScavTrap::operator=(const ScavTrap & other)
